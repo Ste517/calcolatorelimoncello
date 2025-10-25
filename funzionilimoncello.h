@@ -15,8 +15,6 @@ namespace Costanti {
     const double CONTRIBUTO_ZUCCHERO = 0.625; // ml/g volume aumentato da zucchero
 }
 
-using namespace Costanti;
-
 class Tentativi {
     public:
         double massaAlcool;
@@ -31,13 +29,13 @@ class Tentativi {
             massaZucchero = mZucchero;
             massaAcqua = mAcqua;
             massaBucce = mAlcool / 2.0;
-            acquaBucce = massaBucce * ACQUA_BUCCE;
-            massaAlcoolPuro = massaAlcool * GRADO_ALCOOL;
-            volumeAlcol = massaAlcoolPuro / DENSITA_ALCOOL;
-            volumeZucchero = massaZucchero * CONTRIBUTO_ZUCCHERO;
+            acquaBucce = massaBucce * Costanti::ACQUA_BUCCE;
+            massaAlcoolPuro = massaAlcool * Costanti::GRADO_ALCOOL;
+            volumeAlcol = massaAlcoolPuro / Costanti::DENSITA_ALCOOL;
+            volumeZucchero = massaZucchero * Costanti::CONTRIBUTO_ZUCCHERO;
             massaAcquaTotale = massaAcqua + acquaBucce + (massaAlcool - massaAlcoolPuro);
             volumeAcqua = massaAcquaTotale;
-            volumeTotale = (volumeAlcol + volumeAcqua) * (1.0-CONTRAZIONE);
+            volumeTotale = (volumeAlcol + volumeAcqua) * (1.0- Costanti::CONTRAZIONE);
             gradazione = (volumeAlcol / volumeTotale) * 100.0;
             dolcezza = massaZucchero / volumeTotale;
         }
@@ -48,13 +46,13 @@ class Tentativi {
             massaBucce = massaBucceLimone;
             massaZucchero = (massaAlcool * t.massaZucchero) / t.massaAlcool;
             massaAcqua = (massaAlcool * t.massaAcqua) / t.massaAlcool;
-            acquaBucce = massaBucce * ACQUA_BUCCE;
-            massaAlcoolPuro = massaAlcool * GRADO_ALCOOL;
-            volumeAlcol = massaAlcoolPuro / DENSITA_ALCOOL;
-            volumeZucchero = massaZucchero * CONTRIBUTO_ZUCCHERO;
+            acquaBucce = massaBucce * Costanti::ACQUA_BUCCE;
+            massaAlcoolPuro = massaAlcool * Costanti::GRADO_ALCOOL;
+            volumeAlcol = massaAlcoolPuro / Costanti::DENSITA_ALCOOL;
+            volumeZucchero = massaZucchero * Costanti::CONTRIBUTO_ZUCCHERO;
             massaAcquaTotale = massaAcqua + acquaBucce + (massaAlcool - massaAlcoolPuro);
             volumeAcqua = massaAcquaTotale;
-            volumeTotale = (volumeAlcol + volumeAcqua) * (1.0-CONTRAZIONE);
+            volumeTotale = (volumeAlcol + volumeAcqua) * (1.0- Costanti::CONTRAZIONE);
             gradazione = (volumeAlcol / volumeTotale) * 100.0;
             dolcezza = massaZucchero / volumeTotale;
         }
@@ -63,14 +61,14 @@ class Tentativi {
             // Crea un tentativo a partire dalla gradazione e la dolcezza desiderata, sapendo la quantità di bucce di limone che si hanno
             massaAlcool = massaBucceLimone * 2;
             massaBucce = massaBucceLimone;
-            massaAlcoolPuro = massaAlcool * GRADO_ALCOOL;
-            volumeAlcol = massaAlcoolPuro / DENSITA_ALCOOL;
+            massaAlcoolPuro = massaAlcool * Costanti::GRADO_ALCOOL;
+            volumeAlcol = massaAlcoolPuro / Costanti::DENSITA_ALCOOL;
             gradazione = gradazioneDesiderata;
             massaZucchero = (volumeAlcol*dolcezzaDesiderata*100) / gradazioneDesiderata;
-            acquaBucce = massaBucce * ACQUA_BUCCE;
-            volumeZucchero = massaZucchero * CONTRIBUTO_ZUCCHERO;
+            acquaBucce = massaBucce * Costanti::ACQUA_BUCCE;
+            volumeZucchero = massaZucchero * Costanti::CONTRIBUTO_ZUCCHERO;
             volumeTotale = (massaZucchero/dolcezzaDesiderata);
-            volumeAcqua = (volumeTotale/(1-CONTRAZIONE))-volumeAlcol;
+            volumeAcqua = (volumeTotale/(1- Costanti::CONTRAZIONE))-volumeAlcol;
             massaAcquaTotale = volumeAcqua;
             massaAcqua = volumeAcqua - (acquaBucce + (massaAlcool - massaAlcoolPuro));
             dolcezza = dolcezzaDesiderata;
