@@ -24,6 +24,12 @@ jobs:
       - name: Run tests
         run: ctest --test-dir build --output-on-failure
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: calcolalimoncello
+          path: build/
+
   build-windows:
     runs-on: windows-latest
     steps:
@@ -49,3 +55,9 @@ jobs:
 
       - name: Build
         run: cmake --build build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: calcolalimoncello.exe
+          path: build/
