@@ -2,42 +2,62 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
 jobs:
   build-ubuntu:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install Qt6
+        run: sudo apt-get update && sudo apt-get install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools
+
       - name: Configure with CMake
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
       - name: Build with CMake
-        run: cmake --build build
-      - name: make
-        run: make
-      - name: make check
-        run: make check
-      - name: make distcheck
-        run: make distcheck
+        run: cmake --build build -- -j$(nproc)
+
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: calcolalimoncello
+          path: build/
+
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: jurplel/install-qt-action@v3
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
         with:
-          version: '6.10.0'
+          python-version: 3.11
 
-      - name: Setup CMake
-        uses: jwlawson/actions-setup-cmake@v1
+      - name: Install aqtinstall
+        run: pip install aqtinstall
 
-      - name: Configure with CMake
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Install Qt 6.10.0 (MSVC 2022)
+        run: python -m aqt install-qt windows desktop 6.10.0 win64_msvc2022_64 --outputdir ${{ github.workspace }}/Qt
 
-      - name: Build with CMake
-        run: cmake --build build --config Release
+      - name: Set up MSVC Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Run Tests
-        run: ctest --test-dir build --output-on-failure
+      - name: Configure CMake
+        run: cmake -S . -B build -G "NMake Makefiles" -DCMAKE_PREFIX_PATH="${{ github.workspace }}/Qt/6.10.0/msvc2022_64"
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: calcolalimoncello.exe
+          path: build/
