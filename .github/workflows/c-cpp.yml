@@ -27,8 +27,8 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: calcolalimoncello
-          path: build/
+          name: calcolalimoncello-ubuntu
+          path: build/ubuntu/
 
   build-windows:
     runs-on: windows-latest
@@ -59,5 +59,5 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: calcolalimoncello.exe
-          path: build/
+          name: calcolalimoncello-windows
+          path: build/windows/
