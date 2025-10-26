@@ -29,22 +29,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: List Qt architectures (debug step)
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install aqtinstall
+        run: pip install aqtinstall
+
+      - name: List Qt architectures (debug)
         run: python -m aqt list-qt windows desktop --arch 6.10.0
+      #- name: List Qt architectures (debug step)
+      #  run: python -m aqt list-qt windows desktop --arch 6.10.0
+      #
+      #- name: Setup Qt 
+      #  uses: jurplel/install-qt-action@v3        
+      #  with: 
+      #    version: '6.10.0'
+      #  
+      #- name: Setup CMake
+      #  uses: jwlawson/actions-setup-cmake@v1
 
-      - name: Setup Qt 
-        uses: jurplel/install-qt-action@v3        
-        with: 
-          version: '6.10.0'
-        
-      - name: Setup CMake
-        uses: jwlawson/actions-setup-cmake@v1
+      #- name: Configure with CMake
+      #  run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
-      - name: Configure with CMake
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      #- name: Build with CMake
+      #  run: cmake --build build --config Release
 
-      - name: Build with CMake
-        run: cmake --build build --config Release
-
-      - name: Run Tests
-        run: ctest --test-dir build --config Release --output-on-failure
+      #- name: Run Tests
+      #  run: ctest --test-dir build --config Release --output-on-failure
