@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: calcolalimoncello-ubuntu
-          path: build/ubuntu/
+          path: build/
 
   build-windows:
     runs-on: windows-latest
@@ -60,4 +60,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: calcolalimoncello-windows
-          path: build/windows/
+          path: build/
