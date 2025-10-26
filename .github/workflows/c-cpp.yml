@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Generate configure script
-        run: autoreconf -i
-      - name: configure
-        run: ./configure
+      - name: Configure with CMake
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Build with CMake
+        run: cmake --build build
       - name: make
         run: make
       - name: make check
@@ -26,8 +26,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.10.0'
+
       - name: Setup CMake
-        uses: jwlawson/actions-setup-cmake@v1 
+        uses: jwlawson/actions-setup-cmake@v1
 
       - name: Configure with CMake
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release
