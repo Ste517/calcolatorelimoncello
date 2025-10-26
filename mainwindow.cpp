@@ -97,7 +97,7 @@ void MainWindow::on_calcoloDaTentativo_clicked()
     double buccelimone = ui->massaScorze1->value();
     switch (ui->sceltaTentativo->currentIndex()) {
         default:
-            Tentativi t(primotentativo,buccelimone);
+            Tentativi t(TentativiPassati::primotentativo,buccelimone);
             tentativo = t;
     }
     ui->risultati->show();

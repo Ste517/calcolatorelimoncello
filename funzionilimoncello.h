@@ -92,4 +92,6 @@ private:
     double volumeTotale;
 };
 
+namespace TentativiPassati {
 Tentativi primotentativo(95,100,130);
+}
