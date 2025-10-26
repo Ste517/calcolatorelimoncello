@@ -29,6 +29,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: List Qt architectures (debug step)
+        run: python -m aqt list-qt windows desktop --arch 6.10.0
+
       - name: Setup Qt 
         uses: jurplel/install-qt-action@v3        
         with: 
