@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Qt6
+        run: sudo apt-get update && sudo apt-get install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools
+
       - name: Configure with CMake
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
@@ -26,9 +29,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Chocolatey
+        run: Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+        shell: powershell
+
       - name: Install Qt6
-        run: sudo apt-get update && sudo apt-get install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools
-      
+        run: choco install qt6-default
+
       - name: Setup CMake
         uses: jwlawson/actions-setup-cmake@v1
 
