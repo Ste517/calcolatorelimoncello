@@ -2,9 +2,9 @@ name: Build Project
 
 on:
   push:
-    branches: [ "main" , "dev" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main" , "dev" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -47,7 +47,7 @@ jobs:
           ./linuxdeployqt.AppImage install/bin/CalcolatoreLimoncello
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: CalcolatoreLimoncello-${{ matrix.os }}
           path: install/bin/
