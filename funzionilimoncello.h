@@ -94,4 +94,5 @@ private:
 
 namespace TentativiPassati {
 Tentativi primotentativo(95,100,130);
+Tentativi secondotentativo(73,111,143);
 }
